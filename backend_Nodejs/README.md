@@ -1,70 +1,128 @@
-# Getting Started with Create React App
+## 📚 API Documentation
+**Backend API**: [API Base URL](https://real-time-task-management-system-backend.onrender.com)
+### Authentication Endpoints
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### Register User
+```http
+POST /api/auth/register
+```
+Body:
+```json
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "securepassword123"
+}
+```
 
-## Available Scripts
+#### Login User
+```http
+POST /api/auth/login
+```
+Body:
+```json
+{
+    "email": "john@example.com",
+    "password": "securepassword123"
+}
+```
 
-In the project directory, you can run:
+### Task Endpoints
 
-### `npm start`
+#### Create Task
+```http
+POST /api/tasks
+```
+Headers:
+```json
+{
+    "Authorization": "Bearer YOUR_JWT_TOKEN"
+}
+```
+Body:
+```json
+{
+    "title": "Complete Project",
+    "description": "Finish the backend API",
+    "dueDate": "2024-03-01",
+    "priority": "high"
+}
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### Get All Tasks
+```http
+GET /api/tasks
+```
+Headers:
+```json
+{
+    "Authorization": "Bearer YOUR_JWT_TOKEN"
+}
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Get Task by ID
+```http
+GET /api/tasks/:id
+```
+Headers:
+```json
+{
+    "Authorization": "Bearer YOUR_JWT_TOKEN"
+}
+```
 
-### `npm test`
+#### Update Task
+```http
+PUT /api/tasks/:id
+```
+Headers:
+```json
+{
+    "Authorization": "Bearer YOUR_JWT_TOKEN"
+}
+```
+Body:
+```json
+{
+    "title": "Updated Title",
+    "status": "completed"
+}
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Delete Task
+```http
+DELETE /api/tasks/:id
+```
+Headers:
+```json
+{
+    "Authorization": "Bearer YOUR_JWT_TOKEN"
+}
+```
+## 🧪 Testing with Postman
 
-### `npm run build`
+1. Import the Postman Collection
+   - Download the [Postman Collection JSON file](./postman_collection.json)
+   - Open Postman
+   - Click "Import" and select the downloaded file
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Setup Environment Variables in Postman
+   - Create a new environment
+   - Add the following variables:
+     ```
+     BASE_URL: http://localhost:5000
+     TOKEN: (this will be automatically set after login)
+     ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Test Flow
+   - Register a new user
+   - Login to get JWT token (automatically sets in environment)
+   - Use other endpoints with the token
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Common HTTP Status Codes:
+- 200: Success
+- 201: Created
+- 400: Bad Request
+- 401: Unauthorized
+- 404: Not Found
+- 500: Server Error
